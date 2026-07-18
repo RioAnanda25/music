@@ -422,8 +422,9 @@
         -webkit-overflow-scrolling: touch;
       }
 
+      /* REVISI UTAMA: Merubah dari flex kaku menjadi blok yang mengalir dinamis dengan min-height */
       .l-section {
-        padding: 50px 20px 30px 20px !important;
+        padding: 40px 15px 40px 15px !important;
         height: auto !important;
         min-height: 100vh !important;
         display: block !important;
@@ -431,7 +432,7 @@
         box-sizing: border-box !important;
       }
 
-      /* Modifikasi flex layout banner vertical */
+      /* Membebaskan batas absolut posisi container visual agar mengikuti alur halaman */
       .intro, .work, .about, .hire {
         position: relative !important;
         top: 0 !important;
@@ -439,7 +440,7 @@
         transform: none !important;
         width: 100% !important;
         margin: 0 auto !important;
-        padding-top: 10px !important;
+        padding-top: 5px !important;
       }
 
       .intro--banner, .about--banner {
@@ -449,9 +450,9 @@
         flex-direction: column !important;
       }
 
-      /* Sesuaikan judul utama di home agar tidak kebesaran dan menumpuk pada lebar 414px */
+      /* Sesuaikan judul utama di HP agar ukurannya proporsional dan tidak menabrak baris baru */
       .intro--banner h1, .about--banner h2 {
-        font-size: 24px !important;
+        font-size: 26px !important;
         line-height: 1.2 !important;
         position: relative !important;
         z-index: 10 !important;
@@ -482,25 +483,26 @@
         font-size: 14px !important;
       }
 
-      /* Mengubah gambar visual astronot menjadi background halus agar konten di atasnya tidak terpotong */
+      /* CRITICAL FIX: Mengubah gambar astronot menjadi background watermark halus (absolute), 
+         sehingga space utama sepenuhnya ditempati teks/tabel dan TIDAK AKAN KEPOTONG LAGI */
       .intro--banner img,
       .about--banner img {
         position: absolute !important;
-        opacity: 0.12 !important;
-        max-width: 160px !important;
-        top: 0px !important;
-        right: 0px !important;
+        opacity: 0.08 !important; /* Dibuat sangat transparan di latar belakang */
+        max-width: 180px !important;
+        top: -10px !important;
+        right: -10px !important;
         transform: none !important;
         z-index: 1 !important;
         pointer-events: none !important;
       }
 
-      /* Supaya deretan box opsi di home berjejer ke bawah dengan rapi */
+      /* Box opsi bawah berjejer rapi secara vertikal */
       .intro--options {
         display: flex !important;
         flex-direction: column !important;
         gap: 10px !important;
-        margin-top: 20px !important;
+        margin-top: 25px !important;
         opacity: 1 !important;
         position: relative !important;
       }
@@ -509,45 +511,44 @@
         width: 100% !important;
         margin-right: 0 !important;
         margin-bottom: 5px !important;
-        padding: 12px !important;
+        padding: 15px !important;
       }
 
-      /* Kunci pembungkus tabel agar bisa di-scroll secara horizontal tanpa merusak layout luar */
+      /* Pembungkus tabel aman dari kebocoran layout samping */
       .playlist-table-wrapper {
         display: block !important;
         width: 100% !important;
         overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important; /* Smooth scroll di iOS */
+        -webkit-overflow-scrolling: touch !important; 
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 6px;
-        background: rgba(10, 10, 10, 0.9);
+        background: rgba(10, 10, 10, 0.85);
       }
 
       .playlist-table {
-        min-width: 550px !important; /* Memaksa tabel tetap rapi di dalam scrollbox tanpa terhimpit */
+        min-width: 580px !important; /* Mencegah kolom tabel gepeng berdesakan di mobile */
       }
 
       .playlist-table th, 
       .playlist-table td {
-        padding: 8px !important;
+        padding: 10px 8px !important;
         font-size: 12px !important;
       }
 
-      /* Penyesuaian batas tinggi maksimum scroll agar pas dengan viewport HP berukuran tinggi 896px */
+      /* Pembatasan tinggi scroll data yang adaptif untuk resolusi HP standar */
       .scroll-list {
-        max-index: none !important;
-        max-height: 420px !important;
+        max-height: 380px !important;
       }
 
       #albumsList, 
       #playlistContainer {
-        max-height: 440px !important;
-        padding-bottom: 15px !important;
+        max-height: 480px !important;
+        padding-bottom: 20px !important;
         margin-top: 15px !important;
       }
 
       .albums-grid {
-        grid-template-columns: 1fr !important; /* Dibuat 1 kolom penuh di layar vertikal agar lega */
+        grid-template-columns: 1fr !important; /* Menjadi 1 baris vertikal penuh agar lega di HP */
         gap: 12px !important;
       }
 
@@ -555,9 +556,8 @@
         padding: 12px !important;
       }
 
-      /* Memperbaiki jarak tombol aksi di HP agar tidak terlalu rapat */
       .btn-action-edit {
-        margin-bottom: 4px !important;
+        margin-bottom: 5px !important;
         display: inline-block !important;
       }
       
@@ -755,11 +755,11 @@
                   <div class="work-request--information">
                     <div class="information-name">
                       <input id="app-status" type="text" value="Connected" readonly style="color: #0f33ff;">
-                      <label for="app-status">Status</label>
+                      <label for="opt-status">Status</label>
                     </div>
                     <div class="information-email">
                       <input id="app-version" type="text" value="v3" readonly>
-                      <label for="app-version">Version</label>
+                      <label for="opt-version">Version</label>
                     </div>
                   </div>
                 </form>
@@ -1112,6 +1112,8 @@
         toggleLoading(false);
       }
     }
+
+    fn_displayAlbums = displayAlbums;
 
     function displayAlbums(artistName, albums) {
       const albumContainer = document.getElementById('albumsList');
