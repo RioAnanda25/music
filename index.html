@@ -9,16 +9,16 @@
   <meta name="description" content="Music Explorer - Search your favorite artists and discover albums">
   <meta name="keywords" content="music, explorer, search artist, music database">
   <meta name="author" content="Bucky Maler">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link class="revisian" rel="stylesheet" href="assets/css/main.css">
   <style>
-    /* Tambahan style kustom untuk fungsionalitas MusicBrainz */
+    /* Custom additional styles for MusicBrainz functionality */
     .search-container {
       display: flex;
       flex-direction: column;
       gap: 10px;
       margin-top: 30px;
       max-width: 500px;
-      /* SOLUSI: Pemosisian layer container agar berada di atas gambar astronaut */
+      /* SOLUTION: Container layer positioning to be above the astronaut image */
       position: relative;
       z-index: 10;
     }
@@ -102,7 +102,7 @@
       margin-top: 20px;
       padding-right: 10px;
       overscroll-behavior: contain;
-      /* Mencegah kebocoran scroll di daftar artis */
+      /* Prevents scroll leakage in the artist list */
     }
 
     .artist-item-btn {
@@ -196,36 +196,44 @@
     }
 
     /* ==========================================================================
-       SOLUSI UNTUK HALAMAN ALBUMS (SECTION 3)
-       ========================================================================== */
+       SOLUTION FOR ALBUMS PAGE (SECTION 3) & PLAYLISTS PAGE (SECTION 4)
+       ========================================================================= */
 
-    /* 1. Mengatasi Masalah Klik: Membuat klik menembus gambar background visual */
+    /* 1. Handling Click Issues: Make clicks pass through the background visual image */
     .about--banner img {
       pointer-events: none !important;
       z-index: 1;
     }
 
-    /* 2. REVISI: Mengatasi Masalah Item Terpotong Saat Zoom */
-    #albumsList,
-    #playlistContainer {
-      /* Menggunakan tinggi kalkulasi layar agar dinamis menyesuaikan tingkat zoom browser */
-      max-height: calc(100vh - 350px);
-      min-height: 220px;
+    /* 2. REVISION: Handling Cut-off Items During Zoom & Positioning */
+    #albumsList {
+      max-height: calc(100vh - 460px);
+      min-height: 200px;
       overflow-y: auto;
       padding-right: 15px;
-
-      /* MEMBERIKAN RUANG SCROLL BAWAH: Agar baris data ke-3 dan seterusnya bisa didorong ke atas */
-      padding-bottom: 90px;
-
+      padding-bottom: 140px;
       position: relative;
       z-index: 5;
       box-sizing: border-box;
-
-      /* SOLUSI: Mengunci scroll agar tidak memicu perpindahan navigasi/halaman halaman */
       overscroll-behavior: contain;
     }
 
-    /* Kustomisasi scrollbar agar tampak estetik & menyatu dengan tema dark */
+    /* REVISI KHUSUS PLAYLIST CONTAINER (SECTION 4): 
+       padding-bottom diubah ke 0px agar tidak menyisakan ruang kosong (scroll mentok pas) 
+       ketika item list data paling bawah sudah tercapai. */
+    #playlistContainer {
+      max-height: calc(100vh - 460px);
+      min-height: 180px;
+      overflow-y: auto;
+      padding-right: 15px;
+      padding-bottom: 0px;
+      position: relative;
+      z-index: 5;
+      box-sizing: border-box;
+      overscroll-behavior: contain;
+    }
+
+    /* Customize scrollbar to look aesthetic & match the dark theme */
     #albumsList::-webkit-scrollbar,
     #playlistContainer::-webkit-scrollbar {
       width: 6px;
@@ -248,12 +256,12 @@
       background: #001fcc;
     }
 
-    /* Memberikan efek kursor pointer pada label tombol alternatif link */
+    /* Adds pointer cursor effect on label alternative link buttons */
     .work-request--options label {
       cursor: pointer !important;
     }
 
-    /* Tombol dan Layout Playlist Tambahan */
+    /* Additional Playlist Buttons and Layout */
     .btn-add-playlist {
       width: 100%;
       padding: 6px;
@@ -274,7 +282,8 @@
     .playlist-table-wrapper {
       width: 100%;
       overflow-x: auto;
-      margin-top: 25px;
+      margin-top: 12px;
+      /* Disesuaikan dari 25px menjadi 12px agar tabel terangkat lebih rapi */
     }
 
     .playlist-table {
@@ -298,19 +307,21 @@
       vertical-align: middle;
     }
 
-    /* Mengubah pointer mouse menjadi ikon hand-grab saat diarahkan ke baris table */
+    /* Changes mouse pointer to a hand-grab icon when hovering over table rows */
     .playlist-table tbody tr {
       cursor: grab;
     }
+
     .playlist-table tbody tr:active {
       cursor: grabbing;
     }
 
-    /* Efek bayangan transparan saat item ditarik */
+    /* Transparent shadow effect when item is dragged */
     .sortable-ghost {
       opacity: 0.4;
       background-color: rgba(15, 51, 255, 0.3) !important;
     }
+
     .sortable-chosen {
       background-color: rgba(255, 255, 255, 0.05) !important;
     }
@@ -319,17 +330,47 @@
       background: rgba(255, 255, 255, 0.02);
     }
 
-    .btn-action-play {
-      background: #25d366;
-      color: #fff;
-      padding: 5px 10px;
+    .btn-action-play,
+    .btn-action-play:visited {
+      background: #28a745 !important;
+      /* Paksa warna hijau solid standar */
+      color: #fff !important;
+      /* Paksa warna teks tetap putih */
+      padding: 0 10px;
       border-radius: 4px;
       text-decoration: none;
       font-weight: bold;
       font-size: 11px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 24px !important;
+      line-height: 1 !important;
+      vertical-align: middle;
+      gap: 4px;
+
+      /* REVISI UTAMA: Mengunci lebar tombol agar sama rata dan sejajar presisi dengan tombol aksi lainnya */
+      width: 75px !important;
+      box-sizing: border-box;
+      /* Memastikan padding tidak merusak ukuran lebar 75px */
+
+      /* Efek neon/glow menyala konstan */
+      box-shadow: 0 0 8px rgba(40, 167, 69, 0.6) !important;
+
+      transition: all 0.2s ease-in-out;
     }
 
-    /* Tambahan Style Tombol Edit Berwarna Kuning */
+    .btn-action-play:hover {
+      background: #28a745 !important;
+      /* Tetap hijau konstan saat di-hover */
+      color: #fff !important;
+
+      /* Efek menyala dibuat lebih kuat saat di-hover */
+      box-shadow: 0 0 15px rgba(40, 167, 69, 0.9) !important;
+    }
+
+    /* Additional Yellow Edit Button Style */
     .btn-action-edit {
       background: #ffcc00;
       color: #000;
@@ -357,13 +398,118 @@
       font-size: 11px;
     }
 
-    /* Kustomisasi Icon Handle Drag (Tiga Garis) */
+    /* Drag Handle Icon Customization (Three Lines) */
     .drag-handle {
       margin-right: 8px;
       color: #555;
       cursor: grab;
       font-weight: bold;
       display: inline-block;
+    }
+
+    /* ==========================================================================
+       REVISI UTAMA: MEDIA QUERIES UNTUK RESPONSIVE MOBILE & IPHONE 11 (max-width: 768px)
+       ========================================================================= */
+    @media screen and (max-width: 768px) {
+      /* Mencegah notifikasi bawaan template memblokir layar jika ingin diakses di mobile */
+      .device-notification {
+        display: none !important;
+      }
+
+      /* Sesuaikan judul utama di home agar tidak kebesaran dan menumpuk */
+      .intro--banner h1 {
+        font-size: 28px !important;
+        line-height: 1.2 !important;
+      }
+
+      /* Fleksibilitas area input pencarian di HP */
+      .search-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: 15px !important;
+      }
+      
+      .search-box-flex {
+        flex-direction: row !important;
+        width: 100% !important;
+      }
+
+      #searchInput {
+        font-size: 14px !important;
+        padding: 10px !important;
+      }
+
+      #searchBtn {
+        padding: 0 15px !important;
+        font-size: 14px !important;
+      }
+
+      /* Sembunyikan atau redupkan gambar visual background di HP agar teks tidak menabrak */
+      .intro--banner img,
+      .about--banner img {
+        opacity: 0.15 !important;
+        max-width: 60% !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+      }
+
+      /* Supaya deretan box opsi di home berjejer ke bawah dengan rapi */
+      .intro--options {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        margin-top: 20px !important;
+      }
+
+      .intro--options a {
+        width: 100% !important;
+        margin-right: 0 !important;
+        margin-bottom: 5px !important;
+        padding: 10px !important;
+      }
+
+      /* Kunci pembungkus tabel agar bisa di-scroll secara horizontal tanpa merusak layout luar */
+      .playlist-table-wrapper {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important; /* Smooth scroll di iOS / iPhone 11 */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        background: rgba(10, 10, 10, 0.9);
+      }
+
+      .playlist-table {
+        min-width: 600px !important; /* Memaksa tabel tetap rapi di dalam scrollbox tanpa terhimpit */
+      }
+
+      .playlist-table th, 
+      .playlist-table td {
+        padding: 8px !important;
+        font-size: 12px !important;
+      }
+
+      /* Penyesuaian batas tinggi scroll content album & playlist di viewport HP */
+      #albumsList, 
+      #playlistContainer {
+        max-height: calc(100vh - 280px) !important;
+        padding-bottom: 80px !important;
+      }
+
+      .albums-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+        gap: 10px !important;
+      }
+
+      .album-card {
+        padding: 10px !important;
+      }
+
+      /* Memperbaiki jarak tombol aksi di HP agar tidak terlalu rapat */
+      .btn-action-edit {
+        margin-bottom: 4px !important;
+        display: inline-block !important;
+      }
     }
   </style>
 </head>
@@ -376,7 +522,8 @@
       <img src="assets/img/logo.png" alt="Music Explorer">
       <p>Music Explorer</p>
     </a>
-    <p class="device-notification--message">Music Explorer has so much to offer that we must request you orient your device to portrait or find a larger screen. You won't be disappointed.</p>
+    <p class="device-notification--message">Music Explorer has so much to offer that we must request you orient your
+      device to portrait or find a larger screen. You won't be disappointed.</p>
   </div>
 
   <div class="perspective effect-rotate-left">
@@ -399,7 +546,7 @@
               <li class="is-active"><span>Home</span></li>
               <li><span>Artists</span></li>
               <li><span>Albums</span></li>
-              <li><span>About</span></li>
+              <li><span>Playlists</span></li>
               <li><span>Settings</span></li>
             </ul>
           </nav>
@@ -410,13 +557,14 @@
                 <div class="intro--banner">
                   <h1>🎵 Discover<br>Your Favorite<br>Musicians</h1>
 
-                  <!-- Search Box Fungsional dengan Z-Index Aman -->
+                  <!-- Functional Search Box with Secure Z-Index -->
                   <div class="search-container">
                     <div class="search-box-flex">
-                      <input type="text" id="searchInput" placeholder="Masukkan nama artis (contoh: One Direction, Queen)...">
+                      <input type="text" id="searchInput"
+                        placeholder="Enter artist name (e.g., One Direction, Queen)...">
                       <button id="searchBtn" onclick="searchArtist()">Search</button>
                     </div>
-                    <p id="cooldownMsg" class="hidden">⚠️ Mohon tunggu 1 detik sebelum melakukan pencarian lagi (Rate Limit).</p>
+                    <p id="cooldownMsg" class="hidden">⚠️ Please wait 1 second before searching again (Rate Limit).</p>
                   </div>
 
                   <img src="assets/img/introduction-visual.png" alt="Welcome">
@@ -424,15 +572,15 @@
                 <div class="intro--options">
                   <a href="#0">
                     <h3>MusicBrainz DB</h3>
-                    <p>Terhubung langsung ke database musik dunia terestrasi.</p>
+                    <p>Connected directly to the registered world music database.</p>
                   </a>
                   <a href="#0">
                     <h3>Streaming Redirect</h3>
-                    <p>Temukan full album langsung ke YouTube player.</p>
+                    <p>Discover full albums directly to the YouTube player.</p>
                   </a>
                   <a href="#0">
                     <h3>Rate Limited</h3>
-                    <p>Aman dan stabil dengan proteksi pembatasan akses request data.</p>
+                    <p>Safe and stable with data request access limitation protection.</p>
                   </a>
                 </div>
               </div>
@@ -441,16 +589,16 @@
             <!-- SECTION 2: ARTIST LIST RESULTS -->
             <li class="l-section section">
               <div class="work">
-                <h2>Hasil Pencarian Artis</h2>
+                <h2>Artist Search Results</h2>
 
-                <!-- Loader Indicator Global -->
+                <!-- Global Loader Indicator -->
                 <div id="loading" class="hidden">
                   <div class="loader"></div>
                 </div>
 
                 <div class="work--lockup">
                   <div id="artistList" class="scroll-list">
-                    <p class="placeholder-text">Belum ada pencarian. Silakan cari artis di menu utama.</p>
+                    <p class="placeholder-text">No searches yet. Please search for an artist in the main menu.</p>
                   </div>
                 </div>
               </div>
@@ -460,48 +608,57 @@
             <li class="l-section section">
               <div class="about">
                 <div class="about--banner">
-                  <h2>Daftar Album<br>&amp; Rilis<br>Karya Terkait</h2>
+                  <h2>Album List<br>&amp; Related<br>Releases</h2>
 
-                  <div id="albumsList" style="margin-top: 30px; width: 100%;">
-                    <p class="placeholder-text">Pilih artis di menu sebelumnya untuk melihat album mereka.</p>
+                  <!-- REVISI DI SINI: Ditambahkan background semi-transparan, padding, border-radius, & backdrop-filter agar teks kartu sangat jelas terbaca di atas gambar -->
+                  <div id="albumsList"
+                    style="margin-top: 30px; width: 100%; position: relative; z-index: 5; background: rgba(10, 10, 10, 0.75); padding: 20px; border-radius: 8px; backdrop-filter: blur(4px); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+                    <p class="placeholder-text">Select an artist from the previous menu to view their albums.</p>
                   </div>
 
-                  <img src="assets/img/about-visual.png" alt="Albums Data">
+                  <img src="assets/img/5.png" alt="Albums Data">
                 </div>
               </div>
             </li>
 
             <!-- SECTION 4: MY COLLECTED PLAYLIST -->
             <li class="l-section section">
-              <div class="work">
-                <h2>My Collected Playlist</h2>
-                <p style="color: #00bfff; font-size: 14px; margin-bottom: 20px; line-height: 1.4;">
-                  Daftar album musik pilihan yang tersimpan langsung di Firebase Realtime Database. Tahan dan geser baris lagu untuk menyusun urutan secara bebas.
-                </p>
+              <div class="about">
+                <div class="about--banner">
+                  <h2>My Collected<br>Playlist<br>&amp; Favorites</h2>
 
-                <div class="work--lockup">
-                  <div id="playlistContainer" style="width: 100%;">
-                    <div class="playlist-table-wrapper">
-                      <table class="playlist-table">
-                        <thead>
-                          <tr>
-                            <th>Artis</th>
-                            <th>Judul Album</th>
-                            <th>Streaming</th>
-                            <th>Catatan</th>
-                            <th style="min-width: 140px;">Aksi</th>
-                          </tr>
-                        </thead>
-                        <tbody id="playlistTableBody">
-                          <tr>
-                            <td colspan="5" class="placeholder-text" style="text-align: center; padding: 30px;">
-                              Mengambil data dari Firebase...
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                  <p
+                    style="color: #00bfff; font-size: 14px; margin-top: 15px; margin-bottom: 10px; line-height: 1.4; max-width: 550px; position: relative; z-index: 5;">
+                    Stored directly in Firebase Realtime Database. Hold and drag the rows to freely arrange their order.
+                  </p>
+
+                  <div id="playlistContainer" style="margin-top: 20px; width: 100%;">
+                    <!-- REVISI DI SINI: padding-bottom diubah ke 0px agar ujung tabel menempel presisi saat scroll habis -->
+                    <div class="playlist-scroll-padd" style="padding-bottom: 0px;">
+                      <div class="playlist-table-wrapper">
+                        <table class="playlist-table">
+                          <thead>
+                            <tr>
+                              <th>Artist</th>
+                              <th>Album Title</th>
+                              <th>Streaming</th>
+                              <th>Notes</th>
+                              <th style="min-width: 140px;">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody id="playlistTableBody">
+                            <tr>
+                              <td colspan="5" class="placeholder-text" style="text-align: center; padding: 30px;">
+                                Fetching data from Firebase...
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
+
+                  <img src="assets/img/1.png" alt="Playlists Data">
                 </div>
               </div>
             </li>
@@ -513,23 +670,27 @@
                 <form class="work-request" onsubmit="event.preventDefault();">
                   <div class="work-request--options">
                     <span class="options-a">
-                      <!-- MODIFIKASI: Menghapus properti 'disabled' pada checkbox & menambahkan event onClick redirect window -->
-                      <input id="opt-1" type="checkbox" value="musicbrainz" checked onclick="window.open('https://musicbrainz.org/doc/MusicBrainz_API', '_blank')">
+                      <!-- MODIFICATION: Removed 'disabled' property on checkbox & added window redirect onClick event -->
+                      <input id="opt-1" type="checkbox" value="musicbrainz" checked
+                        onclick="window.open('https://musicbrainz.org/doc/MusicBrainz_API', '_blank')">
                       <label for="opt-1">
                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 111">
                           <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                            <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z" />
+                            <path
+                              d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z" />
                           </g>
                         </svg>
                         MusicBrainz API
                       </label>
 
-                      <!-- MODIFIKASI: Menghapus properti 'disabled' pada checkbox & menambahkan event onClick redirect window -->
-                      <input id="opt-2" type="checkbox" value="youtube" checked onclick="window.open('https://console.cloud.google.com/marketplace/product/google/youtube.googleapis.com?q=search&referrer=search&project=polar-pillar-497418-c2', '_blank')">
+                      <!-- MODIFICATION: Removed 'disabled' property on checkbox & added window redirect onClick event -->
+                      <input id="opt-2" type="checkbox" value="youtube" checked
+                        onclick="window.open('https://console.cloud.google.com/marketplace/product/google/youtube.googleapis.com?q=search&referrer=search&project=polar-pillar-497418-c2', '_blank')">
                       <label for="opt-2">
                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 111">
                           <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                            <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z" />
+                            <path
+                              d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z" />
                           </g>
                         </svg>
                         YouTube Redirect
@@ -557,7 +718,7 @@
       <li class="is-active">Home</li>
       <li>Artists</li>
       <li>Albums</li>
-      <li>About</li>
+      <li>Playlists</li>
       <li>Settings</li>
     </ul>
   </div>
@@ -566,10 +727,10 @@
   <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-2.2.4.min.js"><\/script>')</script>
   <script src="assets/js/functions-min.js"></script>
 
-  <!-- Pustaka SortableJS via CDN untuk mendukung manipulasi drag & drop baris tabel -->
+  <!-- SortableJS Library via CDN to support table row drag & drop manipulation -->
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
-  <!-- JAVASCRIPT LOGIKAL UTAMA (INTEGRASI FIREBASE REALTIME DATABASE REST API) -->
+  <!-- MAIN LOGICAL JAVASCRIPT (FIREBASE REALTIME DATABASE REST API INTEGRATION) -->
   <script>
     const API_ROOT = "https://musicbrainz.org/ws/2";
     const YOUTUBE_API_KEY = "AIzaSyBhPYaFWHQNJ1-LpTDHhpbd8e4Ttv1hkow";
@@ -577,7 +738,7 @@
 
     let isCooldown = false;
     let lastCallTime = 0;
-    let sortableInstance = null; // Menyimpan instance drag-drop agar tidak tumpang tindih
+    let sortableInstance = null; // Stores drag-drop instance to avoid overlaps
 
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -591,7 +752,7 @@
     }
 
     // ==========================================================================
-    // LOGIKA OPERASI CRUD FIREBASE (REALTIME DATABASE REST API)
+    // FIREBASE CRUD OPERATION LOGIC (REALTIME DATABASE REST API)
     // ==========================================================================
 
     document.addEventListener("DOMContentLoaded", fetchPlaylistFromFirebase);
@@ -600,13 +761,13 @@
       const tbody = document.getElementById('playlistTableBody');
       try {
         const response = await fetch(`${FIREBASE_DB_URL}.json`);
-        if (!response.ok) throw new Error("Gagal memuat basis data.");
+        if (!response.ok) throw new Error("Failed to load database.");
 
         const data = await response.json();
         tbody.innerHTML = '';
 
         if (!data) {
-          tbody.innerHTML = '<tr><td colspan="5" class="placeholder-text" style="text-align: center; padding: 20px;">Playlist kosong. Silakan cari album dan tambahkan!</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="5" class="placeholder-text" style="text-align: center; padding: 20px;">Playlist is empty. Please search for an album and add it!</td></tr>';
           return;
         }
 
@@ -616,7 +777,7 @@
           position: data[id].position !== undefined ? parseInt(data[id].position) : 999
         }));
 
-        // Urutkan berdasarkan nilai field 'position'
+        // Sort by 'position' field value
         playlistArray.sort((a, b) => {
           if (a.position !== b.position) return a.position - b.position;
           return new Date(a.created_at) - new Date(b.created_at);
@@ -625,39 +786,39 @@
         playlistArray.forEach((item, index) => {
           const id = item.id;
           const tr = document.createElement('tr');
-          
-          // Menyematkan ID unik Firebase ke elemen dataset DOM baris tabel
+
+          // Embed unique Firebase ID into table row DOM dataset elements
           tr.setAttribute('data-id', id);
-          
-          // Menampilkan nomor urutan dinamis berbasis visual index asli (1, 2, 3...)
+
+          // Display dynamic sequence number based on real visual index (1, 2, 3...)
           const posBadge = `<span class="drag-handle">☰</span> [${index + 1}] `;
 
           tr.innerHTML = `
             <td><strong>${posBadge}${item.artist_name}</strong></td>
             <td>${item.album_title}</td>
-            <td><a href="${item.youtube_url}" target="_blank" class="btn-action-play">▶ Play</a></td>
+            <td><a href="${item.youtube_url}" target="_blank" class="btn-action-play">▶ PLAY</a></td>
             <td>
               <span id="notes-${id}" style="color: #aaa; font-size: 12px;">${item.user_notes || '-'}</span>
               <span id="pos-${id}" class="hidden">${item.position}</span>
             </td>
             <td>
               <button class="btn-action-edit" onclick="editPlaylistNotes('${id}')">✏️ Edit</button>
-              <button class="btn-action-delete" onclick="deleteFromPlaylist('${id}')">🗑 Hapus</button>
+              <button class="btn-action-delete" onclick="deleteFromPlaylist('${id}')">🗑 Delete</button>
             </td>
           `;
           tbody.appendChild(tr);
         });
 
-        // Inisialisasi atau perbarui fungsionalitas drag-and-drop menggunakan SortableJS
+        // Initialize or update drag-and-drop functionality using SortableJS
         initDragAndDrop();
 
       } catch (error) {
         console.error(error);
-        tbody.innerHTML = '<tr><td colspan="5" style="color: #ff5555; text-align: center; padding: 30px;">Gagal memuat playlist dari server.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" style="color: #ff5555; text-align: center; padding: 30px;">Failed to load playlist from server.</td></tr>';
       }
     }
 
-    // Fungsi Pengendali Fitur Drag-and-Drop Utama
+    // Main Drag-and-Drop Feature Controller Function
     function initDragAndDrop() {
       const tbody = document.getElementById('playlistTableBody');
       if (!tbody) return;
@@ -670,29 +831,29 @@
         animation: 150,
         ghostClass: 'sortable-ghost',
         chosenClass: 'sortable-chosen',
-        handle: '.drag-handle', // Drag dipicu ketika menyentuh icon tiga garis (☰)
+        handle: '.drag-handle', // Drag is triggered when touching the three lines icon (☰)
         onEnd: async function () {
-          // Triggered saat user selesai melepas tarikan baris tabel
+          // Triggered when user finishes releasing table row drag
           const rows = tbody.querySelectorAll('tr[data-id]');
           toggleLoading(true);
 
           try {
-            // Iterasi baris tabel visual terbaru untuk dikirim secara beruntun ke Firebase via PATCH
+            // Iterate recent visual table rows to send sequentially to Firebase via PATCH
             const promises = Array.from(rows).map((row, index) => {
               const id = row.getAttribute('data-id');
               return fetch(`${FIREBASE_DB_URL}/${id}.json`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ position: index + 1 }) // Update posisi berbasis urutan index baru
+                body: JSON.stringify({ position: index + 1 }) // Update position based on new index order
               });
             });
 
             await Promise.all(promises);
-            // Refresh data visual untuk memperbarui nomor tag teks urutan di layar
+            // Refresh visual data to update sequence tag text numbers on screen
             fetchPlaylistFromFirebase();
           } catch (err) {
-            console.error("Gagal memperbarui susunan posisi di Firebase:", err);
-            alert("Koneksi bermasalah. Gagal menyimpan urutan baru.");
+            console.error("Failed to update position sequence in Firebase:", err);
+            alert("Connection issue. Failed to save new arrangement.");
           } finally {
             toggleLoading(false);
           }
@@ -703,9 +864,9 @@
     async function editPlaylistNotes(id) {
       const currentNotesEl = document.getElementById(`notes-${id}`);
       const currentNotes = currentNotesEl ? currentNotesEl.innerText : "";
-      
-      // REVISI: Mengaktifkan fungsionalitas edit murni catatan tanpa prompt manipulasi urutan manual (redundant dengan drag drop)
-      const newNotes = prompt("Masukkan catatan atau review baru untuk album ini:", currentNotes);
+
+      // REVISION: Enacting pure note editing functionality without manual order manipulation prompts (redundant with drag drop)
+      const newNotes = prompt("Enter a new note or review for this album:", currentNotes);
       if (newNotes === null) return;
 
       toggleLoading(true);
@@ -715,18 +876,18 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ 
+          body: JSON.stringify({
             user_notes: newNotes
           })
         });
 
-        if (!response.ok) throw new Error("Gagal memperbarui data di cloud server.");
-        
-        alert("Playlist berhasil diperbarui!");
+        if (!response.ok) throw new Error("Failed to update data on cloud server.");
+
+        alert("Playlist updated successfully!");
         fetchPlaylistFromFirebase();
       } catch (error) {
         console.error(error);
-        alert("Gagal memperbarui data playlist.");
+        alert("Failed to update playlist data.");
       } finally {
         toggleLoading(false);
       }
@@ -748,7 +909,7 @@
           }
         }
 
-        // Hitung urutan bontot otomatis di client-side sebelum masuk ke DB
+        // Calculate auto tail index on client-side before entering database
         const tbody = document.getElementById('playlistTableBody');
         const currentCount = tbody ? tbody.querySelectorAll('tr[data-id]').length : 0;
 
@@ -756,7 +917,7 @@
           artist_name: artistName,
           album_title: albumTitle,
           youtube_url: youtubeUrl,
-          user_notes: "Koleksi album favorit.",
+          user_notes: "Favorite album collection.",
           position: currentCount + 1,
           created_at: new Date().toISOString()
         };
@@ -769,43 +930,43 @@
           body: JSON.stringify(newPlaylistItem)
         });
 
-        if (!fbResponse.ok) throw new Error("Gagal menyimpan data ke Firebase.");
+        if (!fbResponse.ok) throw new Error("Failed to save data to Firebase.");
 
-        alert(`🎉 Berhasil! Album "${albumTitle}" dari ${artistName} ditambahkan.`);
+        alert(`🎉 Success! Album "${albumTitle}" by ${artistName} has been added.`);
         fetchPlaylistFromFirebase();
       } catch (error) {
         console.error(error);
-        alert("Terjadi kesalahan saat menyimpan playlist.");
+        alert("An error occurred while saving the playlist.");
       } finally {
         toggleLoading(false);
       }
     }
 
     async function deleteFromPlaylist(id) {
-      if (!confirm("Hapus item ini dari playlist database?")) return;
+      if (!confirm("Delete this item from the playlist database?")) return;
       toggleLoading(true);
       try {
         const response = await fetch(`${FIREBASE_DB_URL}/${id}.json`, {
           method: 'DELETE'
         });
-        if (!response.ok) throw new Error("Gagal menghapus data di cloud server.");
-        alert("Item berhasil dihapus.");
+        if (!response.ok) throw new Error("Failed to delete data on cloud server.");
+        alert("Item deleted successfully.");
         fetchPlaylistFromFirebase();
       } catch (error) {
         console.error(error);
-        alert("Gagal menghapus data.");
+        alert("Failed to delete data.");
       } finally {
         toggleLoading(false);
       }
     }
 
     // ==========================================================================
-    // LOGIKA PERMINTAAN API MUSICBRAINZ 
+    // MUSICBRAINZ API REQUEST LOGIC 
     // ==========================================================================
 
     async function searchArtist() {
       const query = document.getElementById('searchInput').value.trim();
-      if (!query) return alert('Silakan masukkan nama artis terlebih dahulu!');
+      if (!query) return alert('Please enter an artist name first!');
 
       if (isCooldown) {
         document.getElementById('cooldownMsg').classList.remove('hidden');
@@ -825,7 +986,7 @@
           }
         });
 
-        if (!response.ok) throw new Error('Gagal mengambil data dari MusicBrainz');
+        if (!response.ok) throw new Error('Failed to fetch data from MusicBrainz');
 
         const data = await response.json();
         displayArtists(data.artists);
@@ -835,18 +996,19 @@
         }
       } catch (error) {
         console.error(error);
-        alert('Terjadi kesalahan saat mengambil data.');
+        alert('An error occurred while fetching data.');
       } finally {
         toggleLoading(false);
       }
     }
 
+    // Displaying artist arrays inside DOM logic
     function displayArtists(artists) {
       const listContainer = document.getElementById('artistList');
       listContainer.innerHTML = '';
 
       if (!artists || artists.length === 0) {
-        listContainer.innerHTML = '<p style="color: #ff5555; font-size: 14px;">Artis tidak ditemukan.</p>';
+        listContainer.innerHTML = '<p style="color: #ff5555; font-size: 14px;">Artist not found.</p>';
         return;
       }
 
@@ -878,7 +1040,7 @@
           }
         });
 
-        if (!response.ok) throw new Error('Gagal mengambil data album');
+        if (!response.ok) throw new Error('Failed to fetch album data');
 
         const data = await response.json();
         const releaseGroups = data['release-groups'] || [];
@@ -890,7 +1052,7 @@
         }
       } catch (error) {
         console.error(error);
-        alert('Gagal memuat album.');
+        alert('Failed to load albums.');
       } finally {
         toggleLoading(false);
       }
@@ -900,14 +1062,14 @@
       const albumContainer = document.getElementById('albumsList');
 
       let htmlContent = `
-        <h3 class="section-headline-cyan">Album dari: <span style="color: #fff;">${artistName}</span></h3>
+        <h3 class="section-headline-cyan">Albums by: <span style="color: #fff;">${artistName}</span></h3>
         <div id="streamingContainer" class="hidden"></div>
       `;
 
       albumContainer.innerHTML = htmlContent;
 
       if (!albums || albums.length === 0) {
-        albumContainer.innerHTML += '<p class="placeholder-text">Tidak ada album publik yang ditemukan.</p>';
+        albumContainer.innerHTML += '<p class="placeholder-text">No public albums found.</p>';
         return;
       }
 
@@ -915,7 +1077,7 @@
       grid.className = "albums-grid";
 
       albums.forEach(album => {
-        const releaseDate = album['first-release-date'] || 'Tanggal tidak diketahui';
+        const releaseDate = album['first-release-date'] || 'Unknown date';
         const type = album['primary-type'] || 'Album';
 
         const sanitizedArtist = artistName.replace(/'/g, "\\'");
@@ -946,7 +1108,7 @@
 
       if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY === "MASUKKAN_API_KEY_YOUTUBE_ANDA_DISINI") {
         toggleLoading(false);
-        alert("Silakan masukkan YouTube API Key.");
+        alert("Please enter a YouTube API Key.");
         return;
       }
 
@@ -955,12 +1117,12 @@
         const ytSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&type=video&maxResults=1&key=${YOUTUBE_API_KEY}`;
 
         const response = await fetch(ytSearchUrl);
-        if (!response.ok) throw new Error('Gagal menghubungi YouTube API');
+        if (!response.ok) throw new Error('Failed to connect to YouTube API');
 
         const ytData = await response.json();
 
         if (!ytData.items || ytData.items.length === 0) {
-          throw new Error('Video tidak ditemukan di YouTube.');
+          throw new Error('Video not found on YouTube.');
         }
 
         const videoId = ytData.items[0].id.videoId;
@@ -970,17 +1132,21 @@
 
       } catch (error) {
         console.error(error);
-        alert('Gagal memuat video YouTube.');
+        alert('Failed to load YouTube video.');
       } finally {
         toggleLoading(false);
       }
     }
 
-    document.getElementById('searchInput').addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') {
-        searchArtist();
-      }
-    });
+    // Safe Check to prevent application from crashing when targeting DOM items
+    const searchInputEl = document.getElementById('searchInput');
+    if (searchInputEl) {
+      searchInputEl.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+          searchArtist();
+        }
+      });
+    }
 
     document.querySelectorAll('.work-request--options input[type="checkbox"]').forEach(checkbox => {
       checkbox.addEventListener('change', function (e) {
