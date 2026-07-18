@@ -408,7 +408,7 @@
     }
 
     /* ==========================================================================
-       REVISI UTAMA: MEDIA QUERIES UNTUK RESPONSIVE MOBILE & IPHONE VERTIKAL (max-width: 768px)
+       REVISI UTAMA: MEDIA QUERIES UNTUK RESPONSIVE MOBILE & VIEWPORT 414x896 px
        ========================================================================= */
     @media screen and (max-width: 768px) {
       /* Mencegah notifikasi bawaan template memblokir layar jika ingin diakses di mobile */
@@ -423,11 +423,12 @@
       }
 
       .l-section {
-        padding: 60px 20px 30px 20px !important;
+        padding: 50px 20px 30px 20px !important;
         height: auto !important;
         min-height: 100vh !important;
         display: block !important;
         overflow-y: visible !important;
+        box-sizing: border-box !important;
       }
 
       /* Modifikasi flex layout banner vertical */
@@ -438,7 +439,7 @@
         transform: none !important;
         width: 100% !important;
         margin: 0 auto !important;
-        padding-top: 20px !important;
+        padding-top: 10px !important;
       }
 
       .intro--banner, .about--banner {
@@ -448,9 +449,9 @@
         flex-direction: column !important;
       }
 
-      /* Sesuaikan judul utama di home agar tidak kebesaran dan menumpuk */
+      /* Sesuaikan judul utama di home agar tidak kebesaran dan menumpuk pada lebar 414px */
       .intro--banner h1, .about--banner h2 {
-        font-size: 26px !important;
+        font-size: 24px !important;
         line-height: 1.2 !important;
         position: relative !important;
         z-index: 10 !important;
@@ -481,18 +482,17 @@
         font-size: 14px !important;
       }
 
-      /* Sembunyikan atau posisikan gambar visual ke paling bawah agar teks tidak menabrak */
+      /* Mengubah gambar visual astronot menjadi background halus agar konten di atasnya tidak terpotong */
       .intro--banner img,
       .about--banner img {
-        position: relative !important;
-        opacity: 0.25 !important;
-        max-width: 180px !important;
-        align-self: center !important;
-        margin-top: 20px !important;
-        top: auto !important;
-        right: auto !important;
+        position: absolute !important;
+        opacity: 0.12 !important;
+        max-width: 160px !important;
+        top: 0px !important;
+        right: 0px !important;
         transform: none !important;
-        order: 99 !important; /* Memaksa gambar turun ke setelah konten teks/list selesai */
+        z-index: 1 !important;
+        pointer-events: none !important;
       }
 
       /* Supaya deretan box opsi di home berjejer ke bawah dengan rapi */
@@ -524,7 +524,7 @@
       }
 
       .playlist-table {
-        min-width: 600px !important; /* Memaksa tabel tetap rapi di dalam scrollbox tanpa terhimpit */
+        min-width: 550px !important; /* Memaksa tabel tetap rapi di dalam scrollbox tanpa terhimpit */
       }
 
       .playlist-table th, 
@@ -533,15 +533,16 @@
         font-size: 12px !important;
       }
 
-      /* Penyesuaian batas tinggi scroll content artist, album & playlist di viewport HP */
+      /* Penyesuaian batas tinggi maksimum scroll agar pas dengan viewport HP berukuran tinggi 896px */
       .scroll-list {
-        max-height: 300px !important;
+        max-index: none !important;
+        max-height: 420px !important;
       }
 
       #albumsList, 
       #playlistContainer {
-        max-height: 400px !important;
-        padding-bottom: 20px !important;
+        max-height: 440px !important;
+        padding-bottom: 15px !important;
         margin-top: 15px !important;
       }
 
