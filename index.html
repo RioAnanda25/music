@@ -408,7 +408,7 @@
     }
 
     /* ==========================================================================
-       REVISI UTAMA: MEDIA QUERIES UNTUK RESPONSIVE MOBILE & IPHONE 11 (max-width: 768px)
+       REVISI UTAMA: MEDIA QUERIES UNTUK RESPONSIVE MOBILE & IPHONE VERTIKAL (max-width: 768px)
        ========================================================================= */
     @media screen and (max-width: 768px) {
       /* Mencegah notifikasi bawaan template memblokir layar jika ingin diakses di mobile */
@@ -416,10 +416,45 @@
         display: none !important;
       }
 
+      /* Kunci area pandang agar halaman utama di HP bisa digulir vertikal dengan aman tanpa merusak layout */
+      .l-viewport {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .l-section {
+        padding: 60px 20px 30px 20px !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        display: block !important;
+        overflow-y: visible !important;
+      }
+
+      /* Modifikasi flex layout banner vertical */
+      .intro, .work, .about, .hire {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding-top: 20px !important;
+      }
+
+      .intro--banner, .about--banner {
+        position: relative !important;
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
       /* Sesuaikan judul utama di home agar tidak kebesaran dan menumpuk */
-      .intro--banner h1 {
-        font-size: 28px !important;
+      .intro--banner h1, .about--banner h2 {
+        font-size: 26px !important;
         line-height: 1.2 !important;
+        position: relative !important;
+        z-index: 10 !important;
+        margin-bottom: 15px !important;
       }
 
       /* Fleksibilitas area input pencarian di HP */
@@ -427,6 +462,8 @@
         width: 100% !important;
         max-width: 100% !important;
         margin-top: 15px !important;
+        position: relative !important;
+        z-index: 12 !important;
       }
       
       .search-box-flex {
@@ -444,13 +481,18 @@
         font-size: 14px !important;
       }
 
-      /* Sembunyikan atau redupkan gambar visual background di HP agar teks tidak menabrak */
+      /* Sembunyikan atau posisikan gambar visual ke paling bawah agar teks tidak menabrak */
       .intro--banner img,
       .about--banner img {
-        opacity: 0.15 !important;
-        max-width: 60% !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
+        position: relative !important;
+        opacity: 0.25 !important;
+        max-width: 180px !important;
+        align-self: center !important;
+        margin-top: 20px !important;
+        top: auto !important;
+        right: auto !important;
+        transform: none !important;
+        order: 99 !important; /* Memaksa gambar turun ke setelah konten teks/list selesai */
       }
 
       /* Supaya deretan box opsi di home berjejer ke bawah dengan rapi */
@@ -459,13 +501,15 @@
         flex-direction: column !important;
         gap: 10px !important;
         margin-top: 20px !important;
+        opacity: 1 !important;
+        position: relative !important;
       }
 
       .intro--options a {
         width: 100% !important;
         margin-right: 0 !important;
         margin-bottom: 5px !important;
-        padding: 10px !important;
+        padding: 12px !important;
       }
 
       /* Kunci pembungkus tabel agar bisa di-scroll secara horizontal tanpa merusak layout luar */
@@ -473,7 +517,7 @@
         display: block !important;
         width: 100% !important;
         overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important; /* Smooth scroll di iOS / iPhone 11 */
+        -webkit-overflow-scrolling: touch !important; /* Smooth scroll di iOS */
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 6px;
         background: rgba(10, 10, 10, 0.9);
@@ -489,26 +533,36 @@
         font-size: 12px !important;
       }
 
-      /* Penyesuaian batas tinggi scroll content album & playlist di viewport HP */
+      /* Penyesuaian batas tinggi scroll content artist, album & playlist di viewport HP */
+      .scroll-list {
+        max-height: 300px !important;
+      }
+
       #albumsList, 
       #playlistContainer {
-        max-height: calc(100vh - 280px) !important;
-        padding-bottom: 80px !important;
+        max-height: 400px !important;
+        padding-bottom: 20px !important;
+        margin-top: 15px !important;
       }
 
       .albums-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
-        gap: 10px !important;
+        grid-template-columns: 1fr !important; /* Dibuat 1 kolom penuh di layar vertikal agar lega */
+        gap: 12px !important;
       }
 
       .album-card {
-        padding: 10px !important;
+        padding: 12px !important;
       }
 
       /* Memperbaiki jarak tombol aksi di HP agar tidak terlalu rapat */
       .btn-action-edit {
         margin-bottom: 4px !important;
         display: inline-block !important;
+      }
+      
+      .work-request--options .options-a {
+        flex-direction: column !important;
+        align-items: flex-start !important;
       }
     }
   </style>
