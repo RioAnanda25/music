@@ -11,14 +11,12 @@
   <meta name="author" content="Bucky Maler">
   <link class="revisian" rel="stylesheet" href="assets/css/main.css">
   <style>
-    /* Custom additional styles for MusicBrainz functionality */
     .search-container {
       display: flex;
       flex-direction: column;
       gap: 10px;
       margin-top: 30px;
       max-width: 500px;
-      /* SOLUTION: Container layer positioning to be above the astronaut image */
       position: relative;
       z-index: 10;
     }
@@ -74,7 +72,6 @@
       display: none !important;
     }
 
-    /* Loading Spinner */
     .loader {
       border: 4px solid #f3f3f3;
       border-radius: 50%;
@@ -95,14 +92,12 @@
       }
     }
 
-    /* Grid List & Cards */
     .scroll-list {
       max-height: 400px;
       overflow-y: auto;
       margin-top: 20px;
       padding-right: 10px;
       overscroll-behavior: contain;
-      /* Prevents scroll leakage in the artist list */
     }
 
     .artist-item-btn {
@@ -195,17 +190,11 @@
       margin-bottom: 10px;
     }
 
-    /* ==========================================================================
-       SOLUTION FOR ALBUMS PAGE (SECTION 3) & PLAYLISTS PAGE (SECTION 4)
-       ========================================================================= */
-
-    /* 1. Handling Click Issues: Make clicks pass through the background visual image */
     .about--banner img {
       pointer-events: none !important;
       z-index: 1;
     }
 
-    /* 2. REVISION: Handling Cut-off Items During Zoom & Positioning */
     #albumsList {
       max-height: calc(100vh - 460px);
       min-height: 200px;
@@ -218,9 +207,6 @@
       overscroll-behavior: contain;
     }
 
-    /* REVISI KHUSUS PLAYLIST CONTAINER (SECTION 4): 
-       padding-bottom diubah ke 0px agar tidak menyisakan ruang kosong (scroll mentok pas) 
-       ketika item list data paling bawah sudah tercapai. */
     #playlistContainer {
       max-height: calc(100vh - 460px);
       min-height: 180px;
@@ -233,7 +219,6 @@
       overscroll-behavior: contain;
     }
 
-    /* Customize scrollbar to look aesthetic & match the dark theme */
     #albumsList::-webkit-scrollbar,
     #playlistContainer::-webkit-scrollbar {
       width: 6px;
@@ -256,12 +241,10 @@
       background: #001fcc;
     }
 
-    /* Adds pointer cursor effect on label alternative link buttons */
     .work-request--options label {
       cursor: pointer !important;
     }
 
-    /* Additional Playlist Buttons and Layout */
     .btn-add-playlist {
       width: 100%;
       padding: 6px;
@@ -283,7 +266,6 @@
       width: 100%;
       overflow-x: auto;
       margin-top: 12px;
-      /* Disesuaikan dari 25px menjadi 12px agar tabel terangkat lebih rapi */
     }
 
     .playlist-table {
@@ -307,7 +289,6 @@
       vertical-align: middle;
     }
 
-    /* Changes mouse pointer to a hand-grab icon when hovering over table rows */
     .playlist-table tbody tr {
       cursor: grab;
     }
@@ -316,7 +297,6 @@
       cursor: grabbing;
     }
 
-    /* Transparent shadow effect when item is dragged */
     .sortable-ghost {
       opacity: 0.4;
       background-color: rgba(15, 51, 255, 0.3) !important;
@@ -333,9 +313,7 @@
     .btn-action-play,
     .btn-action-play:visited {
       background: #28a745 !important;
-      /* Paksa warna hijau solid standar */
       color: #fff !important;
-      /* Paksa warna teks tetap putih */
       padding: 0 10px;
       border-radius: 4px;
       text-decoration: none;
@@ -350,12 +328,9 @@
       vertical-align: middle;
       gap: 4px;
 
-      /* REVISI UTAMA: Mengunci lebar tombol agar sama rata dan sejajar presisi dengan tombol aksi lainnya */
       width: 75px !important;
       box-sizing: border-box;
-      /* Memastikan padding tidak merusak ukuran lebar 75px */
 
-      /* Efek neon/glow menyala konstan */
       box-shadow: 0 0 8px rgba(40, 167, 69, 0.6) !important;
 
       transition: all 0.2s ease-in-out;
@@ -363,14 +338,11 @@
 
     .btn-action-play:hover {
       background: #28a745 !important;
-      /* Tetap hijau konstan saat di-hover */
       color: #fff !important;
 
-      /* Efek menyala dibuat lebih kuat saat di-hover */
       box-shadow: 0 0 15px rgba(40, 167, 69, 0.9) !important;
     }
 
-    /* Additional Yellow Edit Button Style */
     .btn-action-edit {
       background: #ffcc00;
       color: #000;
@@ -398,7 +370,6 @@
       font-size: 11px;
     }
 
-    /* Drag Handle Icon Customization (Three Lines) */
     .drag-handle {
       margin-right: 8px;
       color: #555;
@@ -407,24 +378,20 @@
       display: inline-block;
     }
 
-    /* ==========================================================================
-       REVISI UTAMA: MEDIA QUERIES UNTUK RESPONSIVE MOBILE & VIEWPORT 414x896 px
-       ========================================================================= */
     @media screen and (max-width: 768px) {
-      /* Mencegah notifikasi bawaan template memblokir layar jika ingin diakses di mobile */
       .device-notification {
         display: none !important;
       }
 
-      /* Kunci area pandang agar halaman utama di HP bisa digulir vertikal dengan aman tanpa merusak layout */
       .l-viewport {
         overflow-y: auto !important;
-        -webkit-overflow-scrolling: touch;
+        position: relative !important;
+        height: 100vh !important;
+        -webkit-overflow-scrolling: touch !important;
       }
 
-      /* REVISI UTAMA: Merubah dari flex kaku menjadi blok yang mengalir dinamis dengan min-height */
       .l-section {
-        padding: 40px 15px 40px 15px !important;
+        padding: 55px 20px 40px 20px !important;
         height: auto !important;
         min-height: 100vh !important;
         display: block !important;
@@ -432,7 +399,6 @@
         box-sizing: border-box !important;
       }
 
-      /* Membebaskan batas absolut posisi container visual agar mengikuti alur halaman */
       .intro, .work, .about, .hire {
         position: relative !important;
         top: 0 !important;
@@ -440,7 +406,7 @@
         transform: none !important;
         width: 100% !important;
         margin: 0 auto !important;
-        padding-top: 5px !important;
+        padding-top: 10px !important;
       }
 
       .intro--banner, .about--banner {
@@ -450,16 +416,14 @@
         flex-direction: column !important;
       }
 
-      /* Sesuaikan judul utama di HP agar ukurannya proporsional dan tidak menabrak baris baru */
-      .intro--banner h1, .about--banner h2 {
-        font-size: 26px !important;
+      .intro--banner h1, .about--banner h2, .work h2, .hire h2 {
+        font-size: 28px !important;
         line-height: 1.2 !important;
+        margin-bottom: 20px !important;
         position: relative !important;
         z-index: 10 !important;
-        margin-bottom: 15px !important;
       }
 
-      /* Fleksibilitas area input pencarian di HP */
       .search-container {
         width: 100% !important;
         max-width: 100% !important;
@@ -469,13 +433,15 @@
       }
       
       .search-box-flex {
+        display: flex !important;
         flex-direction: row !important;
         width: 100% !important;
+        gap: 8px !important;
       }
 
       #searchInput {
         font-size: 14px !important;
-        padding: 10px !important;
+        padding: 12px !important;
       }
 
       #searchBtn {
@@ -483,50 +449,46 @@
         font-size: 14px !important;
       }
 
-      /* CRITICAL FIX: Mengubah gambar astronot menjadi background watermark halus (absolute), 
-         sehingga space utama sepenuhnya ditempati teks/tabel dan TIDAK AKAN KEPOTONG LAGI */
       .intro--banner img,
       .about--banner img {
         position: absolute !important;
-        opacity: 0.08 !important; /* Dibuat sangat transparan di latar belakang */
-        max-width: 180px !important;
-        top: -10px !important;
+        opacity: 0.12 !important;
+        max-width: 160px !important;
+        top: -15px !important;
         right: -10px !important;
         transform: none !important;
         z-index: 1 !important;
         pointer-events: none !important;
       }
 
-      /* Box opsi bawah berjejer rapi secara vertikal */
       .intro--options {
         display: flex !important;
         flex-direction: column !important;
-        gap: 10px !important;
-        margin-top: 25px !important;
+        gap: 12px !important;
+        margin-top: 30px !important;
         opacity: 1 !important;
         position: relative !important;
       }
 
       .intro--options a {
         width: 100% !important;
-        margin-right: 0 !important;
-        margin-bottom: 5px !important;
+        margin: 0 !important;
         padding: 15px !important;
+        box-sizing: border-box !important;
       }
 
-      /* Pembungkus tabel aman dari kebocoran layout samping */
       .playlist-table-wrapper {
         display: block !important;
         width: 100% !important;
         overflow-x: auto !important;
         -webkit-overflow-scrolling: touch !important; 
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 6px;
-        background: rgba(10, 10, 10, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 6px !important;
+        background: rgba(10, 10, 10, 0.9) !important;
       }
 
       .playlist-table {
-        min-width: 580px !important; /* Mencegah kolom tabel gepeng berdesakan di mobile */
+        min-width: 550px !important;
       }
 
       .playlist-table th, 
@@ -535,71 +497,57 @@
         font-size: 12px !important;
       }
 
-      /* Pembatasan tinggi scroll data yang adaptif untuk resolusi HP standar */
       .scroll-list {
         max-height: 380px !important;
       }
 
       #albumsList, 
       #playlistContainer {
-        max-height: 480px !important;
-        padding-bottom: 20px !important;
+        max-height: 420px !important;
+        padding: 15px !important;
+        padding-bottom: 15px !important;
         margin-top: 15px !important;
+        box-sizing: border-box !important;
       }
 
       .albums-grid {
-        grid-template-columns: 1fr !important; /* Menjadi 1 baris vertikal penuh agar lega di HP */
+        grid-template-columns: 1fr !important;
         gap: 12px !important;
       }
 
-      .album-card {
-        padding: 12px !important;
-      }
-
-      .btn-action-edit {
-        margin-bottom: 5px !important;
-        display: inline-block !important;
-      }
-      
       .work-request--options .options-a {
+        display: flex !important;
         flex-direction: column !important;
+        gap: 15px !important;
         align-items: flex-start !important;
       }
     }
 
-    /* OPTIMISASI KHUSUS HP LANDSCAPE (TAMPILAN WIDE TERUTAMA IPHONE 11) */
-    @media screen and (max-max-width: 920px) and (max-height: 480px) and (orientation: landscape) {
+    @media screen and (max-width: 900px) and (max-height: 450px) and (orientation: landscape) {
       .l-section {
-        padding: 20px 15px 20px 15px !important;
+        padding: 25px 15px 25px 15px !important;
       }
       
       .intro--banner h1, .about--banner h2 {
         font-size: 22px !important;
         margin-bottom: 10px !important;
-        br {
-          display: none !important; /* Mencegah patah baris berlebih pada judul di landscape */
-        }
       }
 
-      /* Sembunyikan total gambar ilustrasi agar ruang vertikal layar landscape tidak terpotong */
       .intro--banner img,
       .about--banner img {
         display: none !important;
       }
 
-      /* Atur tinggi scroll box lebih ketat agar tidak keluar dari batas layar landscape iPhone 11 */
       .scroll-list {
-        max-height: 180px !important;
+        max-height: 150px !important;
       }
 
       #albumsList, 
       #playlistContainer {
-        max-height: 200px !important;
-        padding: 12px !important;
+        max-height: 170px !important;
         margin-top: 10px !important;
       }
 
-      /* Grid album dibuat 2 kolom pada landscape agar space horizontal termanfaatkan baik */
       .albums-grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 10px !important;
@@ -613,12 +561,6 @@
 
       .intro--options a {
         padding: 10px !important;
-        h3 {
-          font-size: 13px !important;
-        }
-        p {
-          font-size: 11px !important;
-        }
       }
     }
   </style>
@@ -626,7 +568,6 @@
 
 <body>
 
-  <!-- notification for small viewports and landscape oriented smartphones -->
   <div class="device-notification">
     <a class="device-notification--logo" href="#0">
       <img src="assets/img/logo.png" alt="Music Explorer">
@@ -661,13 +602,11 @@
             </ul>
           </nav>
           <ul class="l-main-content main-content">
-            <!-- SECTION 1: HOME & SEARCH INPUT -->
             <li class="l-section section section--is-active">
               <div class="intro">
                 <div class="intro--banner">
                   <h1>🎵 Discover<br>Your Favorite<br>Musicians</h1>
 
-                  <!-- Functional Search Box with Secure Z-Index -->
                   <div class="search-container">
                     <div class="search-box-flex">
                       <input type="text" id="searchInput"
@@ -696,12 +635,10 @@
               </div>
             </li>
 
-            <!-- SECTION 2: ARTIST LIST RESULTS -->
             <li class="l-section section">
               <div class="work">
                 <h2>Artist Search Results</h2>
 
-                <!-- Global Loader Indicator -->
                 <div id="loading" class="hidden">
                   <div class="loader"></div>
                 </div>
@@ -714,13 +651,11 @@
               </div>
             </li>
 
-            <!-- SECTION 3: ALBUMS LIST RESULTS -->
             <li class="l-section section">
               <div class="about">
                 <div class="about--banner">
                   <h2>Album List<br>&amp; Related<br>Releases</h2>
 
-                  <!-- REVISI DI SINI: Ditambahkan background semi-transparan, padding, border-radius, & backdrop-filter agar teks kartu sangat jelas terbaca di atas gambar -->
                   <div id="albumsList"
                     style="margin-top: 30px; width: 100%; position: relative; z-index: 5; background: rgba(10, 10, 10, 0.75); padding: 20px; border-radius: 8px; backdrop-filter: blur(4px); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
                     <p class="placeholder-text">Select an artist from the previous menu to view their albums.</p>
@@ -731,7 +666,6 @@
               </div>
             </li>
 
-            <!-- SECTION 4: MY COLLECTED PLAYLIST -->
             <li class="l-section section">
               <div class="about">
                 <div class="about--banner">
@@ -743,7 +677,6 @@
                   </p>
 
                   <div id="playlistContainer" style="margin-top: 20px; width: 100%;">
-                    <!-- REVISI DI SINI: padding-bottom diubah ke 0px agar ujung tabel menempel presisi saat scroll habis -->
                     <div class="playlist-scroll-padd" style="padding-bottom: 0px;">
                       <div class="playlist-table-wrapper">
                         <table class="playlist-table">
@@ -773,14 +706,12 @@
               </div>
             </li>
 
-            <!-- SECTION 5: SETTINGS / API KEY CONFIGURATION -->
             <li class="l-section section">
               <div class="hire">
                 <h2>Application Configuration</h2>
                 <form class="work-request" onsubmit="event.preventDefault();">
                   <div class="work-request--options">
                     <span class="options-a">
-                      <!-- MODIFICATION: Removed 'disabled' property on checkbox & added window redirect onClick event -->
                       <input id="opt-1" type="checkbox" value="musicbrainz" checked
                         onclick="window.open('https://musicbrainz.org/doc/MusicBrainz_API', '_blank')">
                       <label for="opt-1">
@@ -793,7 +724,6 @@
                         MusicBrainz API
                       </label>
 
-                      <!-- MODIFICATION: Removed 'disabled' property on checkbox & added window redirect onClick event -->
                       <input id="opt-2" type="checkbox" value="youtube" checked
                         onclick="window.open('https://console.cloud.google.com/marketplace/product/google/youtube.googleapis.com?q=search&referrer=search&project=polar-pillar-497418-c2', '_blank')">
                       <label for="opt-2">
@@ -837,10 +767,8 @@
   <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-2.2.4.min.js"><\/script>')</script>
   <script src="assets/js/functions-min.js"></script>
 
-  <!-- SortableJS Library via CDN to support table row drag & drop manipulation -->
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
-  <!-- MAIN LOGICAL JAVASCRIPT (FIREBASE REALTIME DATABASE REST API INTEGRATION) -->
   <script>
     const API_ROOT = "https://musicbrainz.org/ws/2";
     const YOUTUBE_API_KEY = "AIzaSyBhPYaFWHQNJ1-LpTDHhpbd8e4Ttv1hkow";
@@ -848,7 +776,7 @@
 
     let isCooldown = false;
     let lastCallTime = 0;
-    let sortableInstance = null; // Stores drag-drop instance to avoid overlaps
+    let sortableInstance = null;
 
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -860,10 +788,6 @@
       }
       lastCallTime = Date.now();
     }
-
-    // ==========================================================================
-    // FIREBASE CRUD OPERATION LOGIC (REALTIME DATABASE REST API)
-    // ==========================================================================
 
     document.addEventListener("DOMContentLoaded", fetchPlaylistFromFirebase);
 
@@ -887,7 +811,6 @@
           position: data[id].position !== undefined ? parseInt(data[id].position) : 999
         }));
 
-        // Sort by 'position' field value
         playlistArray.sort((a, b) => {
           if (a.position !== b.position) return a.position - b.position;
           return new Date(a.created_at) - new Date(b.created_at);
@@ -897,10 +820,8 @@
           const id = item.id;
           const tr = document.createElement('tr');
 
-          // Embed unique Firebase ID into table row DOM dataset elements
           tr.setAttribute('data-id', id);
 
-          // Display dynamic sequence number based on real visual index (1, 2, 3...)
           const posBadge = `<span class="drag-handle">☰</span> [${index + 1}] `;
 
           tr.innerHTML = `
@@ -919,7 +840,6 @@
           tbody.appendChild(tr);
         });
 
-        // Initialize or update drag-and-drop functionality using SortableJS
         initDragAndDrop();
 
       } catch (error) {
@@ -928,7 +848,6 @@
       }
     }
 
-    // Main Drag-and-Drop Feature Controller Function
     function initDragAndDrop() {
       const tbody = document.getElementById('playlistTableBody');
       if (!tbody) return;
@@ -941,25 +860,22 @@
         animation: 150,
         ghostClass: 'sortable-ghost',
         chosenClass: 'sortable-chosen',
-        handle: '.drag-handle', // Drag is triggered when touching the three lines icon (☰)
+        handle: '.drag-handle',
         onEnd: async function () {
-          // Triggered when user finishes releasing table row drag
           const rows = tbody.querySelectorAll('tr[data-id]');
           toggleLoading(true);
 
           try {
-            // Iterate recent visual table rows to send sequentially to Firebase via PATCH
             const promises = Array.from(rows).map((row, index) => {
               const id = row.getAttribute('data-id');
               return fetch(`${FIREBASE_DB_URL}/${id}.json`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ position: index + 1 }) // Update position based on new index order
+                body: JSON.stringify({ position: index + 1 })
               });
             });
 
             await Promise.all(promises);
-            // Refresh visual data to update sequence tag text numbers on screen
             fetchPlaylistFromFirebase();
           } catch (err) {
             console.error("Failed to update position sequence in Firebase:", err);
@@ -975,7 +891,6 @@
       const currentNotesEl = document.getElementById(`notes-${id}`);
       const currentNotes = currentNotesEl ? currentNotesEl.innerText : "";
 
-      // REVISION: Enacting pure note editing functionality without manual order manipulation prompts (redundant with drag drop)
       const newNotes = prompt("Enter a new note or review for this album:", currentNotes);
       if (newNotes === null) return;
 
@@ -1019,7 +934,6 @@
           }
         }
 
-        // Calculate auto tail index on client-side before entering database
         const tbody = document.getElementById('playlistTableBody');
         const currentCount = tbody ? tbody.querySelectorAll('tr[data-id]').length : 0;
 
@@ -1070,10 +984,6 @@
       }
     }
 
-    // ==========================================================================
-    // MUSICBRAINZ API REQUEST LOGIC 
-    // ==========================================================================
-
     async function searchArtist() {
       const query = document.getElementById('searchInput').value.trim();
       if (!query) return alert('Please enter an artist name first!');
@@ -1112,7 +1022,6 @@
       }
     }
 
-    // Displaying artist arrays inside DOM logic
     function displayArtists(artists) {
       const listContainer = document.getElementById('artistList');
       listContainer.innerHTML = '';
@@ -1250,7 +1159,6 @@
       }
     }
 
-    // Safe Check to prevent application from crashing when targeting DOM items
     const searchInputEl = document.getElementById('searchInput');
     if (searchInputEl) {
       searchInputEl.addEventListener('keypress', function (e) {
@@ -1292,9 +1200,6 @@
       }, 1000);
     }
 
-    // ==========================================================================
-    // SCROLL BUBBLING MITIGATION
-    // ==========================================================================
     const scrollContainers = ['#albumsList', '#artistList', '#playlistContainer'];
     scrollContainers.forEach(selector => {
       const el = document.querySelector(selector);
